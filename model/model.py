@@ -79,8 +79,8 @@ class Model:
             #     self.percorsoMinimo.append(self.G[0])
             #     self.recursion(giorno + 1)
 
-        elif (self.citta + "c") < 3:
-            self.costo += self.citta[giorno]
+        # elif (self.citta + "c") < 3:
+        #     self.costo += self.citta[giorno]
 
 
 
