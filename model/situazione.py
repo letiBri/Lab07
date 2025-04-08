@@ -16,3 +16,7 @@ class Situazione:
 
     def __str__(self):
         return f"[{self.localita} - {self.data}] Umidità = {self.umidita}"
+
+    def creaMese(self):
+        mese = self.data.month
+        return mese

@@ -14,7 +14,19 @@ class Controller:
         self._mese = 0
 
     def handle_umidita_media(self, e):
-        pass
+        self._view.lst_result.controls.clear()
+        if self._mese == 0:
+            self._view.create_alert("Selezionare un mese!")
+            self._view.update_page()
+            return
+
+        avgMilano, avgTorino, avgGenova = self._model.get_all_situazioni(self._mese)
+        self._view.lst_result.controls.append(ft.Text("L'umidità media del mese selezionato è:"))
+        self._view.lst_result.controls.append(ft.Text(f"Milano: {round(avgMilano, 3)}"))
+        self._view.lst_result.controls.append(ft.Text(f"Torino: {round(avgTorino, 3)}"))
+        self._view.lst_result.controls.append(ft.Text(f"Genova: {round(avgGenova, 3)}"))
+        self._view.update_page()
+        return
 
 
 
