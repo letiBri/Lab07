@@ -78,11 +78,12 @@ class Model:
         for situazione in parziale:
             costo += situazione.umidita
 
-        # 2) costo su spostamenti
+        # 2) costo su spostamenti. Senza questa aggiunta la soluzione del lab viene, ma è giusto metterla.
         for i in range(1, len(parziale)):
             # se devo cambiare città in due giorni successivi, pago 100
             if parziale[i-1].localita != parziale[i].localita:
                 costo += 100
+            # oppure, altra interpretazione
             # se i due giorni precedenti non sono stato nella stessa città in cui sono ora, pago 100
             # if i >= 2 and (parziale[i-1].localita != parziale[i].localita or parziale[i-2].localita != parziale[i].localita):
             #     costo += 100
