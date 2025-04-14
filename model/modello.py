@@ -36,7 +36,7 @@ class Model:
         return self.soluzione_ottima, self.costo_ottimo
 
     def trova_possibili_step(self, parziale, lista_situazioni):
-        giorno = len(parziale) + 1  # a me serve cercare giorno successivo alla lunghezza del parziale
+        giorno = len(parziale) + 1  # a me serve cercare per il giorno successivo alla lunghezza del parziale
         candidati = []
         for situazione in lista_situazioni:
             if situazione.data.day == giorno:
@@ -44,7 +44,7 @@ class Model:
         return candidati
 
     def is_admissible(self, candidate, parziale):
-        if len(parziale) == 0:
+        if len(parziale) == 0:  # posso andare dove voglio il giorno 0
             return True
         # vincolo sui 6 giorni
         counter = 0
@@ -79,10 +79,13 @@ class Model:
             costo += situazione.umidita
 
         # 2) costo su spostamenti
-        for i in range(len(parziale)):
-            # se i due giorni precedenti non sono stato nella stessa città in cui sono ora, pago 100
-            if i >= 2 and (parziale[i-1].localita != parziale[i].localita or parziale[i-2].localita != parziale[i].localita):
+        for i in range(1, len(parziale)):
+            # se devo cambiare città in due giorni successivi, pago 100
+            if parziale[i-1].localita != parziale[i].localita:
                 costo += 100
+            # se i due giorni precedenti non sono stato nella stessa città in cui sono ora, pago 100
+            # if i >= 2 and (parziale[i-1].localita != parziale[i].localita or parziale[i-2].localita != parziale[i].localita):
+            #     costo += 100
         return costo
 
     def _ricorsione(self, parziale, lista_situazioni):
@@ -105,7 +108,7 @@ class Model:
                 if self.is_admissible(candidate, parziale):
                     parziale.append(candidate)
                     self._ricorsione(parziale, lista_situazioni)
-                    parziale.pop()
+                    parziale.pop()  # backtracking
 
 
 if __name__ == '__main__':

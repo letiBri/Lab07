@@ -28,8 +28,6 @@ class Controller:
         self._view.update_page()
         return
 
-
-
     def handle_sequenza(self, e):
         self._view.lst_result.controls.clear()
         if self._mese == 0:
@@ -42,7 +40,6 @@ class Controller:
             self._view.lst_result.controls.append(ft.Text(f"[{situazione.localita} - {situazione.data}] Umidità = {situazione.umidita}"))
         self._view.update_page()
         return
-
 
     def read_mese(self, e):
         self._mese = int(e.control.value)
