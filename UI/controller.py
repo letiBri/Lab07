@@ -31,7 +31,18 @@ class Controller:
 
 
     def handle_sequenza(self, e):
-        pass
+        self._view.lst_result.controls.clear()
+        if self._mese == 0:
+            self._view.create_alert("Selezionare un mese!")
+            self._view.update_page()
+            return
+        soluzione_ottima, costo_ottimo = self._model.calcola_sequenze(self._mese)
+        self._view.lst_result.controls.append(ft.Text(f"La sequenza ottima ha costo {costo_ottimo} ed è:"))
+        for situazione in soluzione_ottima:
+            self._view.lst_result.controls.append(ft.Text(f"[{situazione.localita} - {situazione.data}] Umidità = {situazione.umidita}"))
+        self._view.update_page()
+        return
+
 
     def read_mese(self, e):
         self._mese = int(e.control.value)
